@@ -1,7 +1,5 @@
-import { Box } from '@strapi/design-system/Box';
-import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
+import { Box, EmptyStateLayout, Button } from '@strapi/design-system';
 import { ArrowRight } from '@strapi/icons';
-import { Button } from '@strapi/design-system/Button';
 import { Illo } from '../../assets/Illo';
 import { useNavigate } from 'react-router-dom';
 import { PLUGIN_ID } from '../../pluginId';

@@ -1,18 +1,22 @@
-import React, { useState, ChangeEvent, FC } from 'react';
-import { Table, Thead, Tbody, Tr, Td, Th, TFooter } from '@strapi/design-system/Table';
+import { useState, ChangeEvent, FC } from 'react';
 import {
-  ModalLayout,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-} from '@strapi/design-system/ModalLayout';
-import { Box } from '@strapi/design-system/Box';
-import { Button } from '@strapi/design-system/Button';
-import { Typography } from '@strapi/design-system/Typography';
-import { TextInput } from '@strapi/design-system/TextInput';
-import { VisuallyHidden } from '@strapi/design-system/VisuallyHidden';
-import { Flex } from '@strapi/design-system/Flex';
-import { IconButton } from '@strapi/design-system/IconButton';
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Td,
+  Th,
+  TFooter,
+  Modal,
+  Box,
+  Button,
+  Typography,
+  TextInput,
+  VisuallyHidden,
+  Flex,
+  IconButton,
+  Field,
+} from '@strapi/design-system';
 import { Plus, Trash } from '@strapi/icons';
 import { CustomBadge, SubTitle, Title } from '../../styles/form';
 import { InputDataMetadata } from '../../../../types';
@@ -116,9 +120,10 @@ const MetadataTable: FC<MetadataTableProps> = ({
                       disabled={index === 0}
                       onClick={() => handleRemoveMetadata(entry)}
                       label={index === 0 ? "Default value, can't be deleted" : 'Delete'}
-                      noBorder
-                      icon={<Trash />}
-                    />
+                      variant="ghost"
+                    >
+                      <Trash />
+                    </IconButton>
                   </Flex>
                 )}
               </Td>
@@ -128,43 +133,47 @@ const MetadataTable: FC<MetadataTableProps> = ({
       </Table>
 
       {modalIsVisible && (
-        <ModalLayout onClose={closeModal} labelledBy="title">
-          <ModalHeader>
-            <Typography fontWeight="bold" textColor="neutral800" as="h2" id="title">
+        <Modal.Root onOpenChange={closeModal}>
+          <Modal.Header>
+            <Typography fontWeight="bold" textColor="neutral800" variant='beta' id="title">
               Video metadata
             </Typography>
-          </ModalHeader>
-          <ModalBody>
+          </Modal.Header>
+          <Modal.Body>
             <Flex gap={3}>
               <Box grow="1">
-                <TextInput
-                  placeholder="Metadata key"
-                  label="Key"
-                  name="key"
-                  onChange={handleChange}
-                  value={key}
-                />
+                <Field.Root id="metadata_key">
+                  <Field.Label>Key</Field.Label>
+                  <TextInput
+                    placeholder="Metadata key"
+                    name="key"
+                    onChange={handleChange}
+                    value={key}
+                  />
+                </Field.Root>
               </Box>
               <Box grow="1">
-                <TextInput
-                  placeholder="Metadata value"
-                  label="Value"
-                  name="value"
-                  onChange={handleChange}
-                  value={value}
-                />
+                <Field.Root id="metadata_value">
+                  <Field.Label>Value</Field.Label>
+                  <TextInput
+                    placeholder="Metadata value"
+                    name="value"
+                    onChange={handleChange}
+                    value={value}
+                  />
+                </Field.Root>
               </Box>
             </Flex>
-          </ModalBody>
-          <ModalFooter
-            startActions={
+          </Modal.Body>
+          <Modal.Footer>
+            <Modal.Close>
               <Button onClick={closeModal} variant="tertiary">
                 Cancel
               </Button>
-            }
-            endActions={<Button onClick={saveMetadata}>Save</Button>}
-          />
-        </ModalLayout>
+            </Modal.Close>
+            <Button onClick={saveMetadata}>Save</Button>
+          </Modal.Footer>
+        </Modal.Root>
       )}
     </>
   );

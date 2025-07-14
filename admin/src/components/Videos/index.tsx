@@ -68,7 +68,9 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
       <WrapperVideo onClick={() => setIsModalOpen(true)}>
         {thumbnail ? <Thumbnail src={thumbnail} alt={'thumbnail'} /> : <VideoCover />}
         {deletable && (
-          <DeleteIcon onClick={openDeleteDialog} aria-label="Delete" icon={<Trash />} />
+          <DeleteIcon label="Delete" onClick={openDeleteDialog} aria-label="Delete">
+            <Trash />
+          </DeleteIcon>
         )}
       </WrapperVideo>
 

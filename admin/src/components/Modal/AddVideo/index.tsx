@@ -1,12 +1,5 @@
-import React, { FC, useEffect, useState, useRef, ChangeEvent } from 'react';
-import {
-  ModalLayout,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-} from '@strapi/design-system/ModalLayout';
-import { Button } from '@strapi/design-system/Button';
-import { Typography } from '@strapi/design-system/Typography';
+import { FC, useEffect, useState, useRef, ChangeEvent } from 'react';
+import { Modal, Button, Typography } from '@strapi/design-system';
 import FieldComp from '../../FieldComp/Fields';
 import UploadButton from '../../Button/UploadButton';
 import ImportZone, { ImportZoneHandles } from './importZone';
@@ -117,13 +110,13 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
   }, []);
 
   return (
-    <ModalLayout onClose={close} labelledBy="title">
-      <ModalHeader>
-        <Typography fontWeight="bold" textColor="neutral800" as="h2" id="title">
+    <Modal.Root onOpenChange={close} >
+      <Modal.Header>
+        <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
           Upload a video
         </Typography>
-      </ModalHeader>
-      <ModalBody>
+      </Modal.Header>
+      <Modal.Body>
         <ImportZone
           initialState={initialState}
           onFileSelected={onFileSelected}
@@ -171,29 +164,25 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
           handleRemoveMetadata={handleRemoveMetadata}
           editable={true}
         />
-      </ModalBody>
-      <ModalFooter
-        startActions={
+      </Modal.Body>
+      <Modal.Footer>
+        <Modal.Close>
           <Button onClick={close} variant="tertiary">
             Cancel
           </Button>
-        }
-        endActions={
-          <>
-            <UploadButton
-              currentFile={file}
-              title={title}
-              description={description}
-              _public={_public}
-              tags={tags || []}
-              metadata={metadata || []}
-              update={update}
-              close={close}
-            />
-          </>
-        }
-      />
-    </ModalLayout>
+        </Modal.Close>
+        <UploadButton
+          currentFile={file}
+          title={title}
+          description={description}
+          _public={_public}
+          tags={tags || []}
+          metadata={metadata || []}
+          update={update}
+          close={close}
+        />
+      </Modal.Footer>
+    </Modal.Root>
   );
 };
 

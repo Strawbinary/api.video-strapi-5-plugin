@@ -1,9 +1,16 @@
-import { Button } from '@strapi/design-system/Button';
-import { Flex } from '@strapi/design-system/Flex';
-import { IconButton } from '@strapi/design-system/IconButton';
-import { Table, Tbody, Td, Th, Thead, Tr } from '@strapi/design-system/Table';
-import { Typography } from '@strapi/design-system/Typography';
-import { VisuallyHidden } from '@strapi/design-system/VisuallyHidden';
+import {
+  Button,
+  Flex,
+  IconButton,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Typography,
+  VisuallyHidden,
+} from '@strapi/design-system';
 import { Link } from '@strapi/icons';
 import { FC, useState } from 'react';
 import { replacePrivateVideoTokens } from '../../../../server/src/utils/private-videos';
@@ -98,9 +105,10 @@ const LinksTable: FC<LinksProps> = ({ video }) => {
                     <IconButton
                       onClick={() => copyClipboard(links[1])}
                       label={'Copy'}
-                      noBorder
-                      icon={<Link />}
-                    />
+                      variant="ghost"
+                    >
+                      <Link />
+                    </IconButton>
                   </Flex>
                 </Td>
               </Tr>

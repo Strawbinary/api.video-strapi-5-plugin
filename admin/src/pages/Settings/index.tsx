@@ -2,12 +2,9 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { Page, useNotification } from '@strapi/strapi/admin';
 
-import { Box } from '@strapi/design-system/Box';
-import { Button } from '@strapi/design-system/Button';
-import { Grid, GridItem } from '@strapi/design-system/Grid';
-import { ContentLayout, HeaderLayout } from '@strapi/design-system/Layout';
-import { Stack } from '@strapi/design-system/Stack';
-import { Typography } from '@strapi/design-system/Typography';
+import { Box, Button, Grid } from '@strapi/design-system';
+import { Layouts } from '@strapi/admin/strapi-admin';
+import { Flex, Typography } from '@strapi/design-system';
 import { Check } from '@strapi/icons';
 import { CustomSettings } from '../../../../types';
 import settingsRequests from '../../api/settings';
@@ -57,7 +54,7 @@ const Settings = () => {
 
   return (
     <>
-      <HeaderLayout
+      <Layouts.Header
         title={'api.video uploader'}
         primaryAction={
           <Button type="submit" onClick={handleOnSubmit} startIcon={<Check />} size="L">
@@ -66,7 +63,7 @@ const Settings = () => {
         }
       />
 
-      <ContentLayout>
+      <Layouts.Content>
         <Box
           background="neutral0"
           hasRadius
@@ -76,12 +73,10 @@ const Settings = () => {
           paddingLeft={7}
           paddingRight={7}
         >
-          <Stack size={4}>
-            <Typography variant="delta" as="h2">
-              Settings
-            </Typography>
-            <Grid gap={6}>
-              <GridItem col={12} s={12}>
+          <Flex direction="column" gap={4}>
+            <Typography variant="delta">Settings</Typography>
+            <Grid.Root gap={6}>
+              <Grid.Item col={12} s={12}>
                 <FieldComp
                   name="API Key"
                   label="API Key"
@@ -92,8 +87,8 @@ const Settings = () => {
                   isPassword
                   onChange={handleChange}
                 />
-              </GridItem>
-              <GridItem col={12} s={12}>
+              </Grid.Item>
+              <Grid.Item col={12} s={12}>
                 <Toggle
                   label="Default Video Privacy"
                   checked={settings.defaultPublic}
@@ -102,11 +97,11 @@ const Settings = () => {
                   offLabel="Private"
                   onChange={handleSetPublic}
                 />
-              </GridItem>
-            </Grid>
-          </Stack>
+              </Grid.Item>
+            </Grid.Root>
+          </Flex>
         </Box>
-      </ContentLayout>
+      </Layouts.Content>
     </>
   );
 };

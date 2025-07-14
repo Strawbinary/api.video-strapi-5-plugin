@@ -1,8 +1,6 @@
-import React, { useState, FC } from 'react';
-import { Box } from '@strapi/design-system/Box';
-import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
+import { useState, FC } from 'react';
+import { Box, EmptyStateLayout, Button } from '@strapi/design-system';
 import { Plus } from '@strapi/icons';
-import { Button } from '@strapi/design-system/Button';
 import { Illo } from '../../assets/Illo';
 import AddVideoModal from '../Modal/AddVideo';
 

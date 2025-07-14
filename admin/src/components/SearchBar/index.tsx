@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Searchbar, SearchForm } from '@strapi/design-system/Searchbar'
+import { FC } from 'react'
+import { Searchbar, SearchForm } from '@strapi/design-system'
 
 interface SearchBarProps {
     clearSearch: () => void

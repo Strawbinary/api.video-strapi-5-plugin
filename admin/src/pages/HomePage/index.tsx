@@ -4,7 +4,7 @@
  *
  */
 
-import { BaseHeaderLayout, ContentLayout, Layout } from '@strapi/design-system/Layout';
+import { Layouts } from '@strapi/admin/strapi-admin';
 import { Page, useRBAC } from '@strapi/strapi/admin';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -96,16 +96,16 @@ const HomePage = () => {
   if (isLoadingConfiguration || isLoadingPermissions) return <Page.Loading />;
 
   return (
-    <Layout>
-      <BaseHeaderLayout
+    <Layouts.Root>
+      <Layouts.BaseHeader
         title="api.video uploader"
         subtitle="Upload to and manage your api.video library directly within Strapi"
-        as="h2"
+        variant="beta"
         primaryAction={isConfigurated && canCreate && <AddButton update={fetchData} />}
       />
       {isConfigurated ? (
         !isLoadingData && assets?.length > 0 ? (
-          <ContentLayout>
+          <Layouts.Content>
             <SearchBar
               search={search}
               handleSearch={(query) => handleSearch(query)}
@@ -127,14 +127,14 @@ const HomePage = () => {
                   );
                 })}
             </GridBroadcast>
-          </ContentLayout>
+          </Layouts.Content>
         ) : (
           <EmptyState update={fetchData} />
         )
       ) : (
         <SetupNeeded />
       )}
-    </Layout>
+    </Layouts.Root>
   );
 };
 
