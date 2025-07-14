@@ -1,13 +1,14 @@
 import { Core } from '@strapi/strapi'
 import { CustomSettings } from '../../../types'
 import { isValidApiKey } from '../utils/config'
+import { PLUGIN_ID } from '../../../admin/src/pluginId'
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
     async getSettings() {
         const pluginStore = strapi.store({
             environment: strapi.config.environment,
             type: 'plugin',
-            name: 'api-video-uploader',
+            name: PLUGIN_ID,
         })
 
         const defaultPublic = await pluginStore.get({
@@ -28,7 +29,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         const pluginStore = strapi.store({
             environment: strapi.config.environment,
             type: 'plugin',
-            name: 'api-video-uploader',
+            name: PLUGIN_ID,
         })
 
         try {

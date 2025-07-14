@@ -1,12 +1,13 @@
 import ApiVideoClient from '@api.video/nodejs-client'
 import * as packageJson from '../../../package.json'
 import { CustomSettings } from '../../../types'
+import { PLUGIN_ID } from '../../../admin/src/pluginId'
 
 const getConfig = async () => {
     const pluginStore = strapi.store({
         environment: strapi.config.environment,
         type: 'plugin',
-        name: 'api-video-uploader',
+        name: PLUGIN_ID,
     })
 
     const defaultPublic = await pluginStore.get({

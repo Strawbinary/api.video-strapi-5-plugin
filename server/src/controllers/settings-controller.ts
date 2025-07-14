@@ -8,6 +8,7 @@ import {
   settingsReadAction,
   settingsUpdateAction,
 } from '../../../admin/src/actions';
+import { PLUGIN_ID } from '../../../admin/src/pluginId';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   async getSettings(ctx: any) {
@@ -24,7 +25,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       console.log('controller.getSettings');
 
-      return await strapi.plugin('api-video-uploader').service('settings').getSettings(ctx);
+      return await strapi.plugin(PLUGIN_ID).service('settings').getSettings(ctx);
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -38,7 +39,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       console.log('controller.saveSettings');
 
       return await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('settings')
         .saveSettings(ctx.request.body);
     } catch (err) {

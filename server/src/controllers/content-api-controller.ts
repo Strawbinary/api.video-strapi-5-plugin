@@ -5,7 +5,11 @@ import { replacePrivateVideoTokens } from '../utils/private-videos';
 
 const uid = `plugin::${PLUGIN_ID}.api-video-asset`;
 
-export const findOneWithPrivateVideoTransform = async (documentId: string, strapi: Core.Strapi, params?: any, ) => {
+export const findOneWithPrivateVideoTransform = async (
+  documentId: string,
+  strapi: Core.Strapi,
+  params?: any
+) => {
   const video = await strapi.documents(uid).findOne({
     documentId,
     ...(params ?? {}),
@@ -38,17 +42,18 @@ export const findWithPrivateVideoTransform = async (strapi: Core.Strapi, params?
 };
 
 export default factories.createCoreController(
-  'plugin::api-video-uploader.api-video-asset',
-  ({ strapi }: {strapi: Core.Strapi}) => ({
+  `plugin::${PLUGIN_ID}.api-video-asset`,
+  ({ strapi }: { strapi: Core.Strapi }) => ({
     async count(ctx) {
-    //   return await strapi.entityService.count(model, ctx.query);
-    return await strapi.documents(uid).count(ctx.query);
+      return await strapi.documents(uid).count(ctx.query);
     },
     async find(ctx) {
       return await findWithPrivateVideoTransform(strapi, ctx);
     },
     async findOne(ctx) {
-      return (await findOneWithPrivateVideoTransform(ctx.params.id, strapi, ctx.query)) ?? ctx.notFound();
+      return (
+        (await findOneWithPrivateVideoTransform(ctx.params.id, strapi, ctx.query)) ?? ctx.notFound()
+      );
     },
   })
 );

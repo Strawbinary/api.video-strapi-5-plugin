@@ -1,5 +1,5 @@
-import React, { useState, FC } from 'react';
-import { Button } from '@strapi/design-system/Button';
+import { useState, FC } from 'react';
+import { Button } from '@strapi/design-system';
 
 import { Plus } from '@strapi/icons';
 import AddVideoModal from '../../Modal/AddVideo';

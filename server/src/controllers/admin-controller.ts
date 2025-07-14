@@ -6,6 +6,7 @@ import {
   mainReadAction,
   mainUpdateAction,
 } from '../../../admin/src/actions';
+import { PLUGIN_ID } from '../../../admin/src/pluginId';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   async createVideoId(ctx: any) {
@@ -15,7 +16,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       return await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('api-video-asset')
         .createVideoId(ctx.request.body);
     } catch (err) {
@@ -29,7 +30,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       ctx.body = await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('api-video-asset')
         .create(ctx.request.body);
     } catch (err) {
@@ -43,7 +44,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       ctx.body = await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('api-video-asset')
         .findAll(ctx.request.body);
     } catch (err) {
@@ -57,7 +58,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       ctx.body = await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('api-video-asset')
         .token(ctx.params.videoId);
     } catch (err) {
@@ -71,7 +72,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       ctx.body = await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('api-video-asset')
         .update(ctx.params.id, ctx.params.videoId, ctx.request.body);
     } catch (err) {
@@ -85,7 +86,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       return await strapi
-        .plugin('api-video-uploader')
+        .plugin(PLUGIN_ID)
         .service('api-video-asset')
         .delete(ctx.params.id, ctx.params.videoId);
     } catch (err) {
