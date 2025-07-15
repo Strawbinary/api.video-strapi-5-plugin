@@ -33,9 +33,9 @@ const UploadButton: FC<IUploadButtonProps> = ({
   const uploadIsDisabled =
     currentFile === undefined || title.trim().length < 1 || description.trim().length < 1;
 
-  const fileInputChange = async () => {
-    const { toggleNotification } = useNotification();
+  const { toggleNotification } = useNotification();
 
+  const fileInputChange = async () => {
     const body = {
       title: title,
       description: description,

@@ -1,14 +1,13 @@
-import { useFetchClient } from '@strapi/strapi/admin';
-
+import { getFetchClient } from '@strapi/strapi/admin';
 import { PLUGIN_ID } from '../pluginId';
 
 const settingsRequests = {
   get: async () => {
-    const { get } = useFetchClient();
+    const { get } = getFetchClient();
     return await get(`/${PLUGIN_ID}/settings`);
   },
-  update: async (body: Object) => {
-    const { post } = useFetchClient();
+  update: async (body: object) => {
+    const { post } = getFetchClient();
     return await post(`/${PLUGIN_ID}/settings`, {
       body,
     });
