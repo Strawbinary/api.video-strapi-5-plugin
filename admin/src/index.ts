@@ -19,6 +19,29 @@ export default {
       },
     });
 
+    app.createSettingSection(
+      {
+        id: PLUGIN_ID,
+        intlLabel: {
+          id: `${PLUGIN_ID}.plugin.name`,
+          defaultMessage: 'api.video Plugin',
+        },
+      },
+      [
+        {
+          intlLabel: {
+            id: `${PLUGIN_ID}.plugin.name`,
+            defaultMessage: 'api.video Plugin settings',
+          },
+          id: 'settings',
+          to: `/settings/${PLUGIN_ID}`,
+          Component: async () => {
+            return import('./pages/Settings');
+          },
+        },
+      ]
+    );
+
     app.registerPlugin({
       id: PLUGIN_ID,
       initializer: Initializer,
