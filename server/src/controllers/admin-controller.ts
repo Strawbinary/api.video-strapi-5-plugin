@@ -18,7 +18,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       return await strapi
         .plugin(PLUGIN_ID)
         .service('api-video-asset')
-        .createVideoId(ctx.request.body);
+        .createVideoId(ctx.request.body.body);
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -29,10 +29,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         return ctx.forbidden();
       }
 
-      ctx.body = await strapi
-        .plugin(PLUGIN_ID)
-        .service('api-video-asset')
-        .create(ctx.request.body);
+      ctx.body = await strapi.plugin(PLUGIN_ID).service('api-video-asset').create(ctx.request.body.body);
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -46,7 +43,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       ctx.body = await strapi
         .plugin(PLUGIN_ID)
         .service('api-video-asset')
-        .findAll(ctx.request.body);
+        .findAll(ctx.request.body.body);
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -74,7 +71,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       ctx.body = await strapi
         .plugin(PLUGIN_ID)
         .service('api-video-asset')
-        .update(ctx.params.id, ctx.params.videoId, ctx.request.body);
+        .update(ctx.params.id, ctx.params.videoId, ctx.request.body.body);
     } catch (err) {
       ctx.throw(500, err);
     }

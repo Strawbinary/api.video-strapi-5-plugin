@@ -41,7 +41,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       return await strapi
         .plugin(PLUGIN_ID)
         .service('settings')
-        .saveSettings(ctx.request.body);
+        .saveSettings(ctx.request.body.body);
     } catch (err) {
       ctx.throw(500, err);
     }

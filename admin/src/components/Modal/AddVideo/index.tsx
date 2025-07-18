@@ -110,78 +110,80 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
   }, []);
 
   return (
-    <Modal.Root onOpenChange={close} >
-      <Modal.Header>
-        <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
-          Upload a video
-        </Typography>
-      </Modal.Header>
-      <Modal.Body>
-        <ImportZone
-          initialState={initialState}
-          onFileSelected={onFileSelected}
-          ref={importZoneRef}
-        />
-        <FieldComp
-          name="title"
-          label="Title"
-          value={title}
-          placeholder="Enter your title"
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <FieldComp
-          name="description"
-          label="Description"
-          value={description || ''}
-          placeholder="Enter a description"
-          onChange={handleChange}
-          required
-        />
-        <br />
+    <Modal.Root onOpenChange={close} open={true}>
+      <Modal.Content>
+        <Modal.Header>
+          <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
+            Upload a video
+          </Typography>
+        </Modal.Header>
+        <Modal.Body>
+          <ImportZone
+            initialState={initialState}
+            onFileSelected={onFileSelected}
+            ref={importZoneRef}
+          />
+          <FieldComp
+            name="title"
+            label="Title"
+            value={title}
+            placeholder="Enter your title"
+            onChange={handleChange}
+            required
+          />
+          <br />
+          <FieldComp
+            name="description"
+            label="Description"
+            value={description || ''}
+            placeholder="Enter a description"
+            onChange={handleChange}
+            required
+          />
+          <br />
 
-        <Toggle
-          label="Public"
-          required={true}
-          checked={_public}
-          onLabel="True"
-          offLabel="False"
-          onChange={handleSetPublic}
-        />
-        <br />
+          <Toggle
+            label="Public"
+            required={true}
+            checked={_public}
+            onLabel="True"
+            offLabel="False"
+            onChange={handleSetPublic}
+          />
+          <br />
 
-        <Tags
-          handleSetTag={handleSetTag}
-          handleRemoveTag={handleRemoveTag}
-          tags={tags || []}
-          editable={true}
-        />
+          <Tags
+            handleSetTag={handleSetTag}
+            handleRemoveTag={handleRemoveTag}
+            tags={tags || []}
+            editable={true}
+          />
 
-        <MetadataTable
-          metadata={metadata}
-          handleSetMetadata={handleSetMetadata}
-          handleRemoveMetadata={handleRemoveMetadata}
-          editable={true}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Modal.Close>
-          <Button onClick={close} variant="tertiary">
-            Cancel
-          </Button>
-        </Modal.Close>
-        <UploadButton
-          currentFile={file}
-          title={title}
-          description={description}
-          _public={_public}
-          tags={tags || []}
-          metadata={metadata || []}
-          update={update}
-          close={close}
-        />
-      </Modal.Footer>
+          <MetadataTable
+            metadata={metadata}
+            handleSetMetadata={handleSetMetadata}
+            handleRemoveMetadata={handleRemoveMetadata}
+            editable={true}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.Close>
+            <Button onClick={close} variant="tertiary">
+              Cancel
+            </Button>
+          </Modal.Close>
+          <UploadButton
+            currentFile={file}
+            title={title}
+            description={description}
+            _public={_public}
+            tags={tags || []}
+            metadata={metadata || []}
+            update={update}
+            close={close}
+          />
+        </Modal.Footer>
+      </Modal.Content>
     </Modal.Root>
   );
 };

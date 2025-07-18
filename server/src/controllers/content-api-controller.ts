@@ -25,20 +25,24 @@ export const findOneWithPrivateVideoTransform = async (
 };
 
 export const findWithPrivateVideoTransform = async (strapi: Core.Strapi, params?: any) => {
-  const videos: any[] = await strapi.documents(uid).findMany({
-    ...(params ?? {}),
-  });
+  try {
+    const videos: any[] = await strapi.documents(uid).findMany({
+      ...(params ?? {}),
+    });
 
-  return await Promise.all(
-    videos
-      .map((video: CustomVideo) => ({
-        ...video,
-        _public: video._public ?? true,
-      }))
-      .map(async (video: CustomVideo) =>
-        video._public ? video : await replacePrivateVideoTokens(video)
-      )
-  );
+    return await Promise.all(
+      videos
+        .map((video: CustomVideo) => ({
+          ...video,
+          _public: video._public ?? true,
+        }))
+        .map(async (video: CustomVideo) =>
+          video._public ? video : await replacePrivateVideoTokens(video)
+        )
+    );
+  } catch (e) {
+    console.error('Error finding videos', e);
+  }
 };
 
 export default factories.createCoreController(

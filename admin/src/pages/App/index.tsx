@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path={`/plugins/${PLUGIN_ID}`} element={<HomePage />} />
+        <Route index element={<HomePage />} />
         <Route path="*" element={<Page.NoData />} />
       </Routes>
     </div>

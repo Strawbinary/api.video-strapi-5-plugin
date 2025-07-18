@@ -5,7 +5,7 @@ import { PLUGIN_ID } from '../pluginId';
 const assetsRequests = {
   getAllvideos: async () => {
     const { get } = getFetchClient();
-    return await get<Array<any>>(`/${PLUGIN_ID}/api-video-asset`);
+    return await get(`/${PLUGIN_ID}/api-video-asset`);
   },
   getToken: async (videoId: string) => {
     const { get } = getFetchClient();

@@ -43,14 +43,15 @@ const UploadButton: FC<IUploadButtonProps> = ({
       tags: tags,
       metadata: metadata,
     };
-    const { newVideo, token }: any = await assetsRequests.createVideoId(body);
+    const { data }: any = await assetsRequests.createVideoId(body);
+
     if (currentFile) {
       setIsUploading(true);
       const uploader = new VideoUploader({
         file: currentFile,
-        accessToken: token.accessToken,
-        refreshToken: token.refreshToken,
-        videoId: newVideo.videoId,
+        accessToken: data.token?.accessToken,
+        refreshToken: data.token?.refreshToken,
+        videoId: data.newVideo?.videoId,
       });
       try {
         uploader.onProgress((e) => setProgress(Math.round((e.uploadedBytes * 100) / e.totalBytes)));
