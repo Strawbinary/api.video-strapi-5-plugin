@@ -4,32 +4,30 @@ import { CustomVideo } from '../../../types';
 import { configClient } from '../utils/config';
 import { replacePrivateVideoTokens } from '../utils/private-videos';
 
-const model = `plugin::${PLUGIN_ID}.api-video-asset`;
+const uid = `plugin::${PLUGIN_ID}.api-video-asset`;
 
-export default factories.createCoreService(model, (params: { strapi: Core.Strapi }) => ({
+export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Strapi }) => ({
   async createVideoId(data: any) {
     const client = await configClient();
     const newVideo = await client.videos.create({
-      title: data['title'],
-      description: data['description'],
-      _public: data['_public'],
-      tags: data['tags'],
-      metadata: data['metadata'],
+      title: data.title,
+      description: data.description,
+      _public: data._public,
+      tags: data.tags,
+      metadata: data.metadata,
     });
     const token = await client.getAccessToken();
     return { newVideo, token };
   },
 
   async findAll(query: any) {
-    return await strapi.entityService.findMany(model, query);
+    return strapi.documents(uid).findMany(query);
   },
 
   async token(videoId: string) {
     const client = await configClient();
-
     const video = await client.videos.get(videoId);
-
-    return { token: video?._public ? undefined : video.assets?.player?.split('=')[1] };
+    return { token: video._public ? undefined : video.assets?.player?.split('=')[1] };
   },
 
   async create(data: CustomVideo) {
@@ -37,7 +35,7 @@ export default factories.createCoreService(model, (params: { strapi: Core.Strapi
       if (!data._public) {
         data = await replacePrivateVideoTokens(data, '11111111-1111-1111-1111-111111111111');
       }
-      await strapi.entityService.create(model, { data });
+      await strapi.documents(uid).create({ data });
       return true;
     } catch (error) {
       return false;
@@ -48,9 +46,9 @@ export default factories.createCoreService(model, (params: { strapi: Core.Strapi
     const client = await configClient();
     try {
       await client.videos.delete(videoId);
-      await strapi.entityService.delete(model, id);
+      await strapi.documents(uid).delete({ documentId: id });
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   },
@@ -59,28 +57,31 @@ export default factories.createCoreService(model, (params: { strapi: Core.Strapi
     const client = await configClient();
     try {
       const updatedVideo = await client.videos.update(videoId, data);
-      let customVideo = {
+      let customVideo: any = {
         title: updatedVideo.title,
         description: updatedVideo.description,
         _public: updatedVideo._public,
         videoId: updatedVideo.videoId,
         hls: updatedVideo.assets?.hls,
         iframe: updatedVideo.assets?.iframe,
-        mp4: updatedVideo?.assets?.mp4,
+        mp4: updatedVideo.assets?.mp4,
         player: updatedVideo.assets?.player,
-        thumbnail: updatedVideo?.assets?.thumbnail,
+        thumbnail: updatedVideo.assets?.thumbnail,
         tags: updatedVideo.tags,
-        metadata: updatedVideo.metadata,
-      } as CustomVideo;
+        metadata: updatedVideo.metadata as { key: string; value: string }[],
+      };
       if (!customVideo._public) {
         customVideo = await replacePrivateVideoTokens(
           customVideo,
           '11111111-1111-1111-1111-111111111111'
         );
       }
-      const res = await strapi.entityService.update(model, id, { data: customVideo });
+      const res = await strapi.documents(uid).update({
+        documentId: id,
+        data: customVideo,
+      });
       return res;
-    } catch (error) {
+    } catch {
       return false;
     }
   },
