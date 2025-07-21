@@ -85,8 +85,6 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
   };
 
   const onFileSelected = (file: File) => {
-    console.log(file, 'file');
-
     const video = importZoneRef.current?.video;
     const source = importZoneRef.current?.source;
     if (video && source) {

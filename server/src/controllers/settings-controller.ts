@@ -23,8 +23,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         return ctx.forbidden();
       }
 
-      console.log('controller.getSettings');
-
       return await strapi.plugin(PLUGIN_ID).service('settings').getSettings(ctx);
     } catch (err) {
       ctx.throw(500, err);
@@ -35,8 +33,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       if (!isAllowedTo(strapi, ctx, settingsUpdateAction)) {
         return ctx.forbidden();
       }
-
-      console.log('controller.saveSettings');
 
       return await strapi
         .plugin(PLUGIN_ID)

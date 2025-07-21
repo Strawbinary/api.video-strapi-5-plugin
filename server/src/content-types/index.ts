@@ -15,7 +15,7 @@ export default {
                 },
                 'content-type-builder': {
                     visible: true,
-                },
+                }
             },
             options: {
                 draftAndPublish: false,

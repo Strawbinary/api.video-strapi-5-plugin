@@ -17,6 +17,6 @@ export const isAllowedTo = (strapi: Core.Strapi, ctx: any, action: string) => {
 
 export default {
   admin: adminController,
-  'content-api': contentApiControler,
+  'api-video-asset': contentApiControler,
   settings: settingsController,
 };

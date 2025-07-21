@@ -13,7 +13,8 @@ const routes = {
         routes: apiVideoSettingsRoutes,
     },
     // routes for the content api (/api/api-video-strapi-5-plugin/...)
-    'content-api': {
+    // Must be prefixed with 'api-video-asset' to match the name of the content type
+    'api-video-asset': {
         type: 'content-api',
         routes: apiVideoContentApiRoutes,
     },
