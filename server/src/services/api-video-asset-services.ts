@@ -70,16 +70,19 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
         tags: updatedVideo.tags,
         metadata: updatedVideo.metadata as { key: string; value: string }[],
       };
+
       if (!customVideo._public) {
         customVideo = await replacePrivateVideoTokens(
           customVideo,
           '11111111-1111-1111-1111-111111111111'
         );
       }
+
       const res = await strapi.documents(uid).update({
         documentId: id,
         data: customVideo,
       });
+
       return res;
     } catch {
       return false;

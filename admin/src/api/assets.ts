@@ -23,13 +23,13 @@ const assetsRequests = {
       body,
     });
   },
-  update: async (id: number, videoId: string, body: InputData) => {
+  update: async (id: string, videoId: string, body: InputData) => {
     const { put } = getFetchClient();
     return await put(`/${PLUGIN_ID}/api-video-asset/${id}/${videoId}`, {
       body,
     });
   },
-  delete: async (id: number, videoId: string) => {
+  delete: async (id: string, videoId: string) => {
     const { del } = getFetchClient();
     return await del(`/${PLUGIN_ID}/api-video-asset/${id}/${videoId}`);
   },

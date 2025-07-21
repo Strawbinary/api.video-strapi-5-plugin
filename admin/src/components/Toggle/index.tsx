@@ -11,12 +11,6 @@ interface IToggleProps {
   onChange?: (e: React.ChangeEvent<any>) => void;
 }
 
-const FieldLabelStyled = styled(Field.Label)`
-  & > div {
-    width: max-content;
-  }
-`;
-
 const Toggle: FC<IToggleProps> = ({
   label,
   required,
@@ -27,18 +21,15 @@ const Toggle: FC<IToggleProps> = ({
 }): JSX.Element => {
   return (
     <>
-      <Flex>
-        <FieldLabelStyled>
-          {label}
-          {required ? ' *' : ''}
-        </FieldLabelStyled>
-      </Flex>
-      <StrapiToggle
-        checked={checked}
-        onLabel={onLabel ?? ''}
-        offLabel={offLabel ?? ''}
-        onChange={onChange}
-      />
+      <Field.Root required={required}>
+        <Field.Label>{label}</Field.Label>
+        <StrapiToggle
+          checked={checked}
+          onLabel={onLabel ?? ''}
+          offLabel={offLabel ?? ''}
+          onChange={onChange}
+        />
+      </Field.Root>
     </>
   );
 };

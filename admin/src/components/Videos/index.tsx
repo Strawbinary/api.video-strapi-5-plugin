@@ -52,7 +52,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
   }, [video]);
 
   const deleteVideo = async () => {
-    await assetsRequests.delete(video.id, video.videoId);
+    await assetsRequests.delete(video.documentId, video.videoId);
     setIsDeleteDialogOpen(false);
     updateData();
   };

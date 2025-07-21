@@ -69,82 +69,84 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
   };
 
   return (
-    <Modal.Root onOpenChange={close}>
-      <Modal.Header>
-        <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
-          Update video
-        </Typography>
-      </Modal.Header>
-      <Modal.Body>
-        <PlayerView video={video} />
-        <FieldComp
-          name="title"
-          label="Title"
-          value={title}
-          placeholder="Enter your title"
-          onChange={handleChange}
-          editable={editable}
-          required
-        />
-        <br />
-        <FieldComp
-          name="description"
-          label="Description"
-          value={description || ''}
-          placeholder="Enter a description"
-          onChange={handleChange}
-          editable={editable}
-        />
-        <br />
-
-        <Toggle
-          label="Public"
-          required={true}
-          checked={inputData._public}
-          onLabel="True"
-          offLabel="False"
-          onChange={handleSetPublic}
-        />
-        <br />
-
-        <Tags
-          handleSetTag={handleSetTag}
-          handleRemoveTag={handleRemoveTag}
-          tags={tags || []}
-          editable={editable}
-        />
-
-        <MetadataTable
-          metadata={metadata}
-          handleSetMetadata={handleSetMetadata}
-          handleRemoveMetadata={handleRemoveMetadata}
-          editable={editable}
-        />
-
-        <LinksTable video={video} />
-      </Modal.Body>
-      <Modal.Footer>
-        <Modal.Close>
-          <Button onClick={close} variant="tertiary">
-            Cancel
-          </Button>
-        </Modal.Close>
-        editable && (
-        <>
-          <UpdateButton
-            title={title}
-            description={description || ''}
-            _public={_public}
-            tags={tags || []}
-            metadata={metadata || []}
-            id={video.id}
-            videoId={video.videoId}
-            update={update}
-            close={close}
+    <Modal.Root onOpenChange={close} open={true}>
+      <Modal.Content>
+        <Modal.Header>
+          <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
+            Update video
+          </Typography>
+        </Modal.Header>
+        <Modal.Body>
+          <PlayerView video={video} />
+          <FieldComp
+            name="title"
+            label="Title"
+            value={title}
+            placeholder="Enter your title"
+            onChange={handleChange}
+            editable={editable}
+            required
           />
-        </>
-        )
-      </Modal.Footer>
+          <br />
+          <FieldComp
+            name="description"
+            label="Description"
+            value={description || ''}
+            placeholder="Enter a description"
+            onChange={handleChange}
+            editable={editable}
+          />
+          <br />
+
+          <Toggle
+            label="Public"
+            required={true}
+            checked={inputData._public}
+            onLabel="True"
+            offLabel="False"
+            onChange={handleSetPublic}
+          />
+          <br />
+
+          <Tags
+            handleSetTag={handleSetTag}
+            handleRemoveTag={handleRemoveTag}
+            tags={tags || []}
+            editable={editable}
+          />
+
+          <MetadataTable
+            metadata={metadata}
+            handleSetMetadata={handleSetMetadata}
+            handleRemoveMetadata={handleRemoveMetadata}
+            editable={editable}
+          />
+
+          <LinksTable video={video} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.Close>
+            <Button onClick={close} variant="tertiary">
+              Cancel
+            </Button>
+          </Modal.Close>
+          {editable && (
+            <>
+              <UpdateButton
+                title={title}
+                description={description || ''}
+                _public={_public}
+                tags={tags || []}
+                metadata={metadata || []}
+                id={video.documentId}
+                videoId={video.videoId}
+                update={update}
+                close={close}
+              />
+            </>
+          )}
+        </Modal.Footer>
+      </Modal.Content>
     </Modal.Root>
   );
 };

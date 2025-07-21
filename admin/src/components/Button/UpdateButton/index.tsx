@@ -9,7 +9,7 @@ export interface IUpdateButtonProps {
   _public: boolean;
   tags: string[];
   metadata: { key: string; value: string }[];
-  id: number;
+  id: string;
   videoId: string;
   update: () => void;
   close: () => void;
@@ -26,13 +26,10 @@ const UpdateButton: FC<IUpdateButtonProps> = ({
   update,
   close,
 }): JSX.Element => {
-  const [isUploading, setIsUploading] = useState(false);
-
-  const notification = useNotification();
+  const [_isUploading, setIsUploading] = useState(false);
+  const { toggleNotification } = useNotification();
 
   const updateData = async () => {
-    const { toggleNotification } = useNotification();
-
     const body = {
       title: title,
       description: description,

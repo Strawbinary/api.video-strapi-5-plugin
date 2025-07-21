@@ -40,28 +40,26 @@ const FieldComp: FC<IFieldProps> = ({
 }): JSX.Element => {
   return (
     <Field.Root required={required} name={name} hint={description} error={error}>
-      <Flex direction="column" gap={1}>
-        <Flex>
-          <FieldLabelStyled>{label}</FieldLabelStyled>
-          <Box paddingLeft={2}></Box>
-          {detailsLink && (
-            <Flex width="100%" justifyContent="flex-end">
-              <Link isExternal href={detailsLink}>
-                Details
-              </Link>
-            </Flex>
-          )}
-        </Flex>
-        <Field.Input
-          disabled={editable === undefined ? false : !editable}
-          placeholder={placeholder}
-          value={value}
-          type={isPassword ? 'password' : 'text'}
-          onChange={onChange}
-        />
-        <Field.Hint />
-        <Field.Error />
+      <Flex width="100%">
+        <Field.Label width="100%">{label}</Field.Label>
+        <Box paddingLeft={2}></Box>
+        {detailsLink && (
+          <Flex width="100%" justifyContent="flex-end">
+            <Link isExternal href={detailsLink}>
+              Details
+            </Link>
+          </Flex>
+        )}
       </Flex>
+      <Field.Input
+        disabled={editable === undefined ? false : !editable}
+        placeholder={placeholder}
+        value={value}
+        type={isPassword ? 'password' : 'text'}
+        onChange={onChange}
+      />
+      <Field.Hint />
+      <Field.Error />
     </Field.Root>
   );
 };

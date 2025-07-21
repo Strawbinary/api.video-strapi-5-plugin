@@ -133,46 +133,48 @@ const MetadataTable: FC<MetadataTableProps> = ({
       </Table>
 
       {modalIsVisible && (
-        <Modal.Root onOpenChange={closeModal}>
-          <Modal.Header>
-            <Typography fontWeight="bold" textColor="neutral800" variant='beta' id="title">
-              Video metadata
-            </Typography>
-          </Modal.Header>
-          <Modal.Body>
-            <Flex gap={3}>
-              <Box grow="1">
-                <Field.Root id="metadata_key">
-                  <Field.Label>Key</Field.Label>
-                  <TextInput
-                    placeholder="Metadata key"
-                    name="key"
-                    onChange={handleChange}
-                    value={key}
-                  />
-                </Field.Root>
-              </Box>
-              <Box grow="1">
-                <Field.Root id="metadata_value">
-                  <Field.Label>Value</Field.Label>
-                  <TextInput
-                    placeholder="Metadata value"
-                    name="value"
-                    onChange={handleChange}
-                    value={value}
-                  />
-                </Field.Root>
-              </Box>
-            </Flex>
-          </Modal.Body>
-          <Modal.Footer>
-            <Modal.Close>
-              <Button onClick={closeModal} variant="tertiary">
-                Cancel
-              </Button>
-            </Modal.Close>
-            <Button onClick={saveMetadata}>Save</Button>
-          </Modal.Footer>
+        <Modal.Root onOpenChange={closeModal} open={true}>
+          <Modal.Content>
+            <Modal.Header>
+              <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
+                Video metadata
+              </Typography>
+            </Modal.Header>
+            <Modal.Body>
+              <Flex gap={3}>
+                <Box grow="1">
+                  <Field.Root id="metadata_key">
+                    <Field.Label>Key</Field.Label>
+                    <TextInput
+                      placeholder="Metadata key"
+                      name="key"
+                      onChange={handleChange}
+                      value={key}
+                    />
+                  </Field.Root>
+                </Box>
+                <Box grow="1">
+                  <Field.Root id="metadata_value">
+                    <Field.Label>Value</Field.Label>
+                    <TextInput
+                      placeholder="Metadata value"
+                      name="value"
+                      onChange={handleChange}
+                      value={value}
+                    />
+                  </Field.Root>
+                </Box>
+              </Flex>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close>
+                <Button onClick={closeModal} variant="tertiary">
+                  Cancel
+                </Button>
+              </Modal.Close>
+              <Button onClick={saveMetadata}>Save</Button>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal.Root>
       )}
     </>
