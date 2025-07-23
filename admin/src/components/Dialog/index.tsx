@@ -12,7 +12,7 @@ interface IDialogDelete {
 
 const DialogDelete: FC<IDialogDelete> = ({ title, isOpen, close, deleteVideo }) => {
   return (
-    <Dialog.Root onOpenChange={close}>
+    <Dialog.Root onOpenChange={close} defaultOpen={true}>
       <Dialog.Content>
         <Dialog.Header>Confirmation</Dialog.Header>
         <Dialog.Body icon={<WarningCircle />}>

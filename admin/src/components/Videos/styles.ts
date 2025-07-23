@@ -21,12 +21,10 @@ export const Container = styled.div`
   border: 1px solid #32324d;
   cursor: pointer;
   box-shadow: 1px 1px 10px rgba(3, 3, 5, 0.2);
+  &:hover ${DeleteIcon as any} {
+    display: flex;
+  }
 `;
-
-// TODO: Analyze further if this is still needed
-//   &:hover ${DeleteIcon} {
-//     display: block;
-//   }
 
 export const GridBroadcast = styled.div`
   display: grid;

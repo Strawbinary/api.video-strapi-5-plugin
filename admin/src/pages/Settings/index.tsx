@@ -9,7 +9,6 @@ import { CustomSettings } from '../../../../types';
 import settingsRequests from '../../api/settings';
 import FieldComp from '../../components/FieldComp/Fields';
 import Toggle from '../../components/Toggle';
-import pluginPermissions from '../../permissions';
 
 const Settings = () => {
   const [settings, setSettings] = useState<CustomSettings>({
@@ -98,7 +97,7 @@ const Settings = () => {
 };
 
 export default () => (
-  <Page.Protect permissions={pluginPermissions.settingsRoles}>
+  <Page.Protect permissions={[{ action: 'plugin::api-video-strapi-5-plugin.settings.read', subject: null }]}>
     <Settings />
   </Page.Protect>
 );

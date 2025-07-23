@@ -6,7 +6,7 @@
 
 import { Layouts } from '@strapi/admin/strapi-admin';
 import { Page, useRBAC } from '@strapi/strapi/admin';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PrivateVideoSession } from '@api.video/private-video-session';
 import { CustomVideo } from '../../../../types';
@@ -18,7 +18,7 @@ import SearchBar from '../../components/SearchBar';
 import SetupNeeded from '../../components/SetupNeeded';
 import VideoView from '../../components/Videos';
 import { GridBroadcast } from '../../components/Videos/styles';
-import pluginPermissions from '../../permissions';
+import { PLUGIN_ID } from '../../pluginId';
 
 export type EnhancedCustomVideo = CustomVideo & {
   token?: string;
@@ -32,20 +32,11 @@ const HomePage = () => {
   const [assets, setAssets] = useState<CustomVideo[]>([]);
   const [search, setSearch] = useState('');
 
-  const permissions = useMemo(() => {
-    return {
-      read: pluginPermissions.mainRead,
-      create: pluginPermissions.mainCreate,
-      delete: pluginPermissions.mainDelete,
-      update: pluginPermissions.mainUpdate,
-      updateSettings: pluginPermissions.settingsUpdate,
-    };
-  }, []);
-
-  const {
-    isLoading: isLoadingPermissions,
-    allowedActions: { canRead, canCreate, canDelete, canUpdate, canUpdateSettings },
-  } = useRBAC(permissions);
+  const { allowedActions, isLoading: isLoadingPermissions } = useRBAC([
+    { action: `plugin::${PLUGIN_ID}.create`, subject: null },
+    { action: `plugin::${PLUGIN_ID}.update`, subject: null },
+    { action: `plugin::${PLUGIN_ID}.delete`, subject: null },
+  ]);
 
   const fetchData = async () => {
     if (isLoadingData === false) setIsLoadingData(true);
@@ -101,7 +92,9 @@ const HomePage = () => {
         title="api.video uploader"
         subtitle="Upload to and manage your api.video library directly within Strapi"
         variant="beta"
-        primaryAction={isConfigurated && canCreate && <AddButton update={fetchData} />}
+        primaryAction={
+          isConfigurated && allowedActions.canCreate && <AddButton update={fetchData} />
+        }
       />
       {isConfigurated ? (
         !isLoadingData && assets?.length > 0 ? (
@@ -121,8 +114,8 @@ const HomePage = () => {
                       video={video}
                       key={videoId}
                       updateData={fetchData}
-                      editable={canUpdate}
-                      deletable={canDelete}
+                      editable={allowedActions.canUpdate}
+                      deletable={allowedActions.canDelete}
                     />
                   );
                 })}
@@ -139,7 +132,7 @@ const HomePage = () => {
 };
 
 export default () => (
-  <Page.Protect permissions={pluginPermissions.mainRead}>
+  <Page.Protect permissions={[{ action: 'plugin::api-video-strapi-5-plugin.read', subject: null }]}>
     <HomePage />
   </Page.Protect>
 );
