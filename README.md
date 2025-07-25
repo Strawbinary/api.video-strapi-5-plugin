@@ -23,13 +23,13 @@ This plugin is published on npm. You can install it with your preferred package 
 
 ```bash
 # Using npm (recommended)
-npm install @strawbinarycorp/api-video-strapi-5-plugin@latest
+npm install @strawbinary-io/api-video-strapi-5-plugin@latest
 
 # Or with yarn
-yarn add @strawbinarycorp/api-video-strapi-5-plugin@latest
+yarn add @strawbinary-io/api-video-strapi-5-plugin@latest
 
 # Or with pnpm
-pnpm add @strawbinarycorp/api-video-strapi-5-plugin@latest
+pnpm add @strawbinary-io/api-video-strapi-5-plugin@latest
 ```
 
 After installation, rebuild your Strapi admin:

@@ -69,7 +69,7 @@
     "displayName": "api.video Strapi 5 Plugin",
     "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project"
   },
-  "name": "@strawbinarycorp/api-video-strapi-5-plugin",
+  "name": "@strawbinary-io/api-video-strapi-5-plugin",
   "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project",
   "license": "MIT",
   "repository": {
