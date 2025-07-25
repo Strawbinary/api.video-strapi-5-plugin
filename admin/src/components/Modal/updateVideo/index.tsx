@@ -1,5 +1,7 @@
 import { Button, Modal, Typography } from '@strapi/design-system';
 import { ChangeEvent, FC, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { getTranslation } from '../../../utils/getTranslation';
 import { InputData } from '../../../../../types';
 import { EnhancedCustomVideo } from '../../../pages/HomePage';
 import UpdateButton from '../../Button/UpdateButton';
@@ -33,6 +35,7 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
 
   // CONSTANTS
   const { title, description, _public, tags, metadata } = inputData;
+  const { formatMessage } = useIntl();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -73,16 +76,25 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
       <Modal.Content>
         <Modal.Header>
           <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
-            Update video
+            {formatMessage({
+              id: getTranslation('updateVideoModal.title'),
+              defaultMessage: 'Update video',
+            })}
           </Typography>
         </Modal.Header>
         <Modal.Body>
           <PlayerView video={video} />
           <FieldComp
             name="title"
-            label="Title"
+            label={formatMessage({
+              id: getTranslation('addVideoModal.field.title'),
+              defaultMessage: 'Title',
+            })}
             value={title}
-            placeholder="Enter your title"
+            placeholder={formatMessage({
+              id: getTranslation('addVideoModal.field.placeholder.title'),
+              defaultMessage: 'Enter your title',
+            })}
             onChange={handleChange}
             editable={editable}
             required
@@ -90,20 +102,35 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
           <br />
           <FieldComp
             name="description"
-            label="Description"
+            label={formatMessage({
+              id: getTranslation('addVideoModal.field.description'),
+              defaultMessage: 'Description',
+            })}
             value={description || ''}
-            placeholder="Enter a description"
+            placeholder={formatMessage({
+              id: getTranslation('addVideoModal.field.placeholder.description'),
+              defaultMessage: 'Enter a description',
+            })}
             onChange={handleChange}
             editable={editable}
           />
           <br />
 
           <Toggle
-            label="Public"
+            label={formatMessage({
+              id: getTranslation('addVideoModal.field.public'),
+              defaultMessage: 'Public',
+            })}
             required={true}
             checked={inputData._public}
-            onLabel="True"
-            offLabel="False"
+            onLabel={formatMessage({
+              id: getTranslation('addVideoModal.field.public.on'),
+              defaultMessage: 'True',
+            })}
+            offLabel={formatMessage({
+              id: getTranslation('addVideoModal.field.public.off'),
+              defaultMessage: 'False',
+            })}
             onChange={handleSetPublic}
           />
           <br />
@@ -127,7 +154,10 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
         <Modal.Footer>
           <Modal.Close>
             <Button onClick={close} variant="tertiary">
-              Cancel
+              {formatMessage({
+                id: getTranslation('addVideoModal.cancel'),
+                defaultMessage: 'Cancel',
+              })}
             </Button>
           </Modal.Close>
           {editable && (

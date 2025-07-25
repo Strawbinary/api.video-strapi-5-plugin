@@ -7,6 +7,8 @@
 import { Layouts } from '@strapi/admin/strapi-admin';
 import { Page, useRBAC } from '@strapi/strapi/admin';
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { getTranslation } from '../../utils/getTranslation';
 
 import { PrivateVideoSession } from '@api.video/private-video-session';
 import { CustomVideo } from '../../../../types';
@@ -31,6 +33,7 @@ const HomePage = () => {
   const [isConfigurated, setIsConfigurated] = useState(false);
   const [assets, setAssets] = useState<CustomVideo[]>([]);
   const [search, setSearch] = useState('');
+  const { formatMessage } = useIntl();
 
   const { allowedActions, isLoading: isLoadingPermissions } = useRBAC([
     { action: `plugin::${PLUGIN_ID}.create`, subject: null },
@@ -89,8 +92,14 @@ const HomePage = () => {
   return (
     <Layouts.Root>
       <Layouts.BaseHeader
-        title="api.video uploader"
-        subtitle="Upload to and manage your api.video library directly within Strapi"
+        title={formatMessage({
+          id: getTranslation('homePage.title'),
+          defaultMessage: 'api.video uploader',
+        })}
+        subtitle={formatMessage({
+          id: getTranslation('homePage.subtitle'),
+          defaultMessage: 'Upload to and manage your api.video library directly within Strapi',
+        })}
         variant="beta"
         primaryAction={
           isConfigurated && allowedActions.canCreate && <AddButton update={fetchData} />

@@ -108,7 +108,8 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
         from,
         to,
         sortBy: 'metricValue', 
-        sortOrder: 'desc', 
+        sortOrder: 'desc',
+        viewDuration: '30s' 
       });
 
 

@@ -1,6 +1,8 @@
 import { useState, FC } from 'react';
 import { Button } from '@strapi/design-system';
 import { useNotification } from '@strapi/strapi/admin';
+import { useIntl } from 'react-intl';
+import { getTranslation } from '../../../utils/getTranslation';
 import assetsRequests from '../../../api/assets';
 
 export interface IUpdateButtonProps {
@@ -28,6 +30,7 @@ const UpdateButton: FC<IUpdateButtonProps> = ({
 }): JSX.Element => {
   const [_isUploading, setIsUploading] = useState(false);
   const { toggleNotification } = useNotification();
+  const { formatMessage } = useIntl();
 
   const updateData = async () => {
     const body = {
@@ -56,7 +59,14 @@ const UpdateButton: FC<IUpdateButtonProps> = ({
     }
   };
 
-  return <Button onClick={updateData}>Update</Button>;
+  return (
+    <Button onClick={updateData}>
+      {formatMessage({
+        id: getTranslation('general.update'),
+        defaultMessage: 'Update',
+      })}
+    </Button>
+  );
 };
 
 export default UpdateButton;

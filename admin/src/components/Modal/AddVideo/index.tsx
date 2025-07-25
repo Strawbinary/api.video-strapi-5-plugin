@@ -1,5 +1,7 @@
 import { FC, useEffect, useState, useRef, ChangeEvent } from 'react';
 import { Modal, Button, Typography } from '@strapi/design-system';
+import { useIntl } from 'react-intl';
+import { getTranslation } from '../../../utils/getTranslation';
 import FieldComp from '../../FieldComp/Fields';
 import UploadButton from '../../Button/UploadButton';
 import ImportZone, { ImportZoneHandles } from './importZone';
@@ -30,6 +32,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
 
   const [file, setFile] = useState<File | undefined>();
   const [initialState, setInitialState] = useState<number>(0);
+  const { formatMessage } = useIntl();
 
   // CONSTANTS
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -112,7 +115,10 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
       <Modal.Content>
         <Modal.Header>
           <Typography fontWeight="bold" textColor="neutral800" variant="beta" id="title">
-            Upload a video
+            {formatMessage({
+              id: getTranslation('addVideoModal.title'),
+              defaultMessage: 'Upload a video',
+            })}
           </Typography>
         </Modal.Header>
         <Modal.Body>
@@ -123,29 +129,50 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
           />
           <FieldComp
             name="title"
-            label="Title"
+            label={formatMessage({
+              id: getTranslation('addVideoModal.field.title'),
+              defaultMessage: 'Title',
+            })}
             value={title}
-            placeholder="Enter your title"
+            placeholder={formatMessage({
+              id: getTranslation('addVideoModal.field.placeholder.title'),
+              defaultMessage: 'Enter your title',
+            })}
             onChange={handleChange}
             required
           />
           <br />
           <FieldComp
             name="description"
-            label="Description"
+            label={formatMessage({
+              id: getTranslation('addVideoModal.field.description'),
+              defaultMessage: 'Description',
+            })}
             value={description || ''}
-            placeholder="Enter a description"
+            placeholder={formatMessage({
+              id: getTranslation('addVideoModal.field.placeholder.description'),
+              defaultMessage: 'Enter a description',
+            })}
             onChange={handleChange}
             required
           />
           <br />
 
           <Toggle
-            label="Public"
+            label={formatMessage({
+              id: getTranslation('addVideoModal.field.public'),
+              defaultMessage: 'Public',
+            })}
             required={true}
             checked={_public}
-            onLabel="True"
-            offLabel="False"
+            onLabel={formatMessage({
+              id: getTranslation('addVideoModal.field.public.on'),
+              defaultMessage: 'True',
+            })}
+            offLabel={formatMessage({
+              id: getTranslation('addVideoModal.field.public.off'),
+              defaultMessage: 'False',
+            })}
             onChange={handleSetPublic}
           />
           <br />
@@ -167,7 +194,10 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
         <Modal.Footer>
           <Modal.Close>
             <Button onClick={close} variant="tertiary">
-              Cancel
+              {formatMessage({
+                id: getTranslation('addVideoModal.cancel'),
+                defaultMessage: 'Cancel',
+              })}
             </Button>
           </Modal.Close>
           <UploadButton

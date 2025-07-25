@@ -1,5 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useState, useRef } from 'react';
 import styled from 'styled-components';
+import { useIntl } from 'react-intl';
+import { getTranslation } from '../../../utils/getTranslation';
 import { VideoCover } from '../../../assets/VideoCover';
 import { useNotification } from '@strapi/strapi/admin';
 import { useTheme } from '../../../utils/hooks';
@@ -26,6 +28,7 @@ const ImportZone = forwardRef<ImportZoneHandles, IImportZoneProps>(
 
     const inputFile = useRef<HTMLInputElement | null>(null);
     const { toggleNotification } = useNotification();
+    const { formatMessage } = useIntl();
     const [file, setFile] = useState<File | undefined>();
     const theme = useTheme();
 
@@ -52,7 +55,10 @@ const ImportZone = forwardRef<ImportZoneHandles, IImportZoneProps>(
         if (ev.dataTransfer.items.length > 1) {
           toggleNotification({
             type: 'warning',
-            message: 'Only one file is allowed',
+            message: formatMessage({
+              id: getTranslation('importZone.onlyOneFile'),
+              defaultMessage: 'Only one file is allowed',
+            }),
           });
           return;
         }
@@ -66,7 +72,10 @@ const ImportZone = forwardRef<ImportZoneHandles, IImportZoneProps>(
         if (ev.dataTransfer.files.length > 1) {
           toggleNotification({
             type: 'warning',
-            message: 'Only one file is allowed',
+            message: formatMessage({
+              id: getTranslation('importZone.onlyOneFile'),
+              defaultMessage: 'Only one file is allowed',
+            }),
           });
           return;
         }
@@ -78,7 +87,10 @@ const ImportZone = forwardRef<ImportZoneHandles, IImportZoneProps>(
         if (!file.type.startsWith('video/')) {
           toggleNotification({
             type: 'warning',
-            message: 'Only video files are allowed',
+            message: formatMessage({
+              id: getTranslation('importZone.onlyVideo'),
+              defaultMessage: 'Only video files are allowed',
+            }),
           });
           return;
         }
@@ -96,9 +108,18 @@ const ImportZone = forwardRef<ImportZoneHandles, IImportZoneProps>(
           </video>
         </ThumbnailImg>
         <Title dark={theme === 'dark'}>
-          Select a video<Asterisk>*</Asterisk> file to upload
+          {formatMessage({
+            id: getTranslation('importZone.select'),
+            defaultMessage: 'Select a video file to upload',
+          })}
+          <Asterisk>*</Asterisk>
         </Title>
-        <Subtitle>or drag and drop it here</Subtitle>
+        <Subtitle>
+          {formatMessage({
+            id: getTranslation('importZone.orDragDrop'),
+            defaultMessage: 'or drag and drop it here',
+          })}
+        </Subtitle>
         <input
           type="file"
           id="upload"
