@@ -1,3 +1,5 @@
+import { ChartCircle } from '@strapi/icons';
+
 import { getTranslation } from './utils/getTranslation';
 import { PLUGIN_ID } from './pluginId';
 import Initializer from './components/Initializer';
@@ -47,6 +49,20 @@ export default {
       initializer: Initializer,
       isReady: false,
       name: PLUGIN_ID,
+    });
+
+    app.widgets.register({
+      icon: ChartCircle,
+      title: {
+        id: `${PLUGIN_ID}.widget.top5videos`,
+        defaultMessage: 'API.video Top 5 Videos',
+      },
+      component: async () => {
+        const component = await import('./components/Widgets/Top5Videos');
+        return component.default;
+      },
+      id: `widget.top5videos`,
+      pluginId: PLUGIN_ID,
     });
   },
 

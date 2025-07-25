@@ -16,6 +16,14 @@ export default [
         },
     },
     {
+        method: 'GET',
+        path: '/api-video-asset/getTopVideos',
+        handler: 'admin.getTopVideos',
+        config: {
+            policies: [],
+        },
+    },
+    {
         method: 'POST',
         path: '/api-video-asset',
         handler: 'admin.create',

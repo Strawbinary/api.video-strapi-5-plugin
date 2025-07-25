@@ -29,7 +29,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         return ctx.forbidden();
       }
 
-      ctx.body = await strapi.plugin(PLUGIN_ID).service('api-video-asset').create(ctx.request.body.body);
+      ctx.body = await strapi
+        .plugin(PLUGIN_ID)
+        .service('api-video-asset')
+        .create(ctx.request.body.body);
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -89,5 +92,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     } catch (err) {
       ctx.throw(500, err);
     }
+  },
+  async getTopVideos(ctx: any) {
+    if (!isAllowedTo(strapi, ctx, mainReadAction)) {
+      return ctx.forbidden();
+    }
+
+    return await strapi.plugin(PLUGIN_ID).service('api-video-asset').getTopVideos(ctx.query);
   },
 });

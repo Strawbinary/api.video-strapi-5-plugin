@@ -1,8 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Page, useNotification } from '@strapi/strapi/admin';
-import { Box, Button, Grid } from '@strapi/design-system';
+import { Box, Button } from '@strapi/design-system';
 import { Layouts } from '@strapi/admin/strapi-admin';
-import { Flex, Typography } from '@strapi/design-system';
 import { Check } from '@strapi/icons';
 
 import { CustomSettings } from '../../../../types';

@@ -4,6 +4,8 @@ import { CustomVideo } from '../../../types';
 import { configClient } from '../utils/config';
 import { replacePrivateVideoTokens } from '../utils/private-videos';
 
+import { winston } from '@strapi/logger';
+
 const uid = `plugin::${PLUGIN_ID}.api-video-asset`;
 
 export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Strapi }) => ({
@@ -86,6 +88,45 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
       return res;
     } catch {
       return false;
+    }
+  },
+
+  async getTopVideos(query: any) {
+    const client = await configClient();
+
+    const { startDate, endDate } = query;
+    const now = new Date();
+    const from = startDate
+      ? new Date(startDate as string)
+      : new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const to = endDate ? new Date(endDate as string) : now;
+
+    try {
+      const { data } = await client.analytics.getMetricsBreakdown({
+        metric: 'view', 
+        breakdown: 'media-id', 
+        from,
+        to,
+        sortBy: 'metricValue', 
+        sortOrder: 'desc', 
+      });
+
+
+      const topMetrics = data.sort((a, b) => b.metricValue - a.metricValue).slice(0, 5);
+
+      return await Promise.all(
+        topMetrics.map(async ({ dimensionValue, metricValue }) => {
+          const videoRes = await client.videos.get(dimensionValue);
+          const title = videoRes.title || dimensionValue;
+          return {
+            videoId: dimensionValue,
+            metrics: { views: metricValue },
+            video: { title },
+          };
+        })
+      );
+    } catch (error) {
+      winston.error(error);
     }
   },
 }));
