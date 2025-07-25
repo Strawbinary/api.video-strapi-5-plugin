@@ -23,13 +23,13 @@ This plugin is published on npm. You can install it with your preferred package 
 
 ```bash
 # Using npm (recommended)
-npm install @strawbinary/api.video-strapi-5-plugin@latest
+npm install @strawbinarycorp/api-video-strapi-5-plugin@latest
 
 # Or with yarn
-yarn add @strawbinary/api.video-strapi-5-plugin@latest
+yarn add @strawbinarycorp/api-video-strapi-5-plugin@latest
 
 # Or with pnpm
-pnpm add @strawbinary/api.video-strapi-5-plugin@latest
+pnpm add @strawbinarycorp/api-video-strapi-5-plugin@latest
 ```
 
 After installation, rebuild your Strapi admin:
@@ -39,7 +39,7 @@ npm run build
 npm run develop
 ```
 
-Once Strapi is up, the **API.VIDEO** plugin will appear under **Plugins** in the sidebar.
+Once Strapi is up, the **API.VIDEO** plugin will in the sidebar.
 
 ## 🖐 Requirements
 
@@ -55,7 +55,7 @@ Once Strapi is up, the **API.VIDEO** plugin will appear under **Plugins** in the
 
 Before using the plugin, you must supply your api.video API key in Strapi’s settings panel.
 
-1. In Strapi Admin, go to **Settings** → **API.VIDEO Uploader** → **General**.
+1. In Strapi Admin, go to **Settings** → **API.VIDEO Plugin**.
 2. Enter your API key and click **Save**.
 
 ### Content Security Policy

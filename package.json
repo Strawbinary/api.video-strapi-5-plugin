@@ -1,6 +1,6 @@
 {
-  "version": "0.0.0",
-  "keywords": [],
+  "version": "1.0.0",
+  "keywords": ["strapi", "api.video"],
   "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
@@ -69,7 +69,7 @@
     "displayName": "api.video Strapi 5 Plugin",
     "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project"
   },
-  "name": "api-video-strapi-5-plugin",
+  "name": "@strawbinarycorp/api-video-strapi-5-plugin",
   "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project",
   "license": "MIT",
   "repository": {
