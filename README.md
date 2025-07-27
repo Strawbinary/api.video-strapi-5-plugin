@@ -1,9 +1,21 @@
-# Strapi v5 – api.video Uploader
+# Strapi v5 – api.video plugin
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@strawbinary-io/api-video-strapi-5-plugin">
+    <img src="https://img.shields.io/npm/v/%40strawbinary-io%2Fapi-video-strapi-5-plugin" alt="NPM Version" />
+  </a>
+</p>
 
 A powerful Strapi plugin to easily manage your videos and integrate them in your project.
 
 **Core Contributor**: [Strawbinary](https://github.com/Strawbinary)  
-Follow [@strawbinary](https://www.linkedin.com/company/strawbinary-gbr/ )
+**Follow** [@strawbinary](https://www.linkedin.com/company/strawbinary-gbr/)
+
+**About this Plugin:**
+This plugin is a fork of [Strapi v4 - api.video uploader](https://github.com/apivideo/api.video-strapi-plugin/tree/main),
+originally developed by the api.video team under the MIT license.
+
+This version updates the plugin for Strapi 5 and introduces several improvements.
 
 ---
 
@@ -11,10 +23,10 @@ Follow [@strawbinary](https://www.linkedin.com/company/strawbinary-gbr/ )
 
 ## ✨ Features
 
-- **Upload videos** directly from your Strapi admin via file picker to [api.video](https://api.video)  
-- **Manage assets** with a responsive grid and built-in pagination  
-- **Search** your library by title or tags  
-- **Preview** with the embedded api.video player ([api.video-player-react](https://github.com/apivideo/api.video-react-player))  
+- **Upload videos** directly from your Strapi admin via file picker to [api.video](https://api.video)
+- **Manage assets** with a responsive grid and built-in pagination
+- **Search** your library by title or tags
+- **Preview** with the embedded api.video player ([api.video-player-react](https://github.com/apivideo/api.video-react-player))
 - **Delete** assets (removes on both Strapi and api.video sides)
 
 ## ⏳ Installation
@@ -73,13 +85,7 @@ export default [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': [
-            "'self'",
-            'data:',
-            'blob:',
-            'embed.api.video',
-            'cdn.api.video/vod/',
-          ],
+          'img-src': ["'self'", 'data:', 'blob:', 'embed.api.video', 'cdn.api.video/vod/'],
           'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
           'frame-src': ["'self'", 'data:', 'blob:', 'embed.api.video'],
           upgradeInsecureRequests: null,

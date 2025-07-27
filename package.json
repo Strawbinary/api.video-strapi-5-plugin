@@ -1,6 +1,13 @@
 {
-  "version": "1.0.0",
-  "keywords": ["strapi", "api.video"],
+  "version": "1.0.1",
+  "keywords": [
+    "strapi",
+    "api.video",
+    "strapi5",
+    "strapi-cms",
+    "cms",
+    "headlesscms"
+  ],
   "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
@@ -79,6 +86,6 @@
   "bugs": {
     "url": "https://github.com/Strawbinary/api.video-strapi-5-plugin/issues"
   },
-  "homepage": "https://github.com/Strawbinary/api.video-strapi-5-plugin#readme",
+  "homepage": "https://strawbinary.de/",
   "author": "Strawbinary team <info@strawbinary.de>"
 }
