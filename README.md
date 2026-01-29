@@ -59,7 +59,7 @@ Once Strapi is up, the **API.VIDEO** plugin will in the sidebar.
   - An [api.video](https://api.video) account
   - An API key from the [api.video Dashboard](https://dashboard.api.video/apikeys)
 - **Node.js**
-  - Version: 18.x – 20.x
+  - Version: 20.x – 24.x
 - **Strapi**
   - Strapi v5 only (not compatible with v4 or earlier)
 
