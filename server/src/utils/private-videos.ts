@@ -7,13 +7,7 @@ export const replacePrivateVideoTokens = async (video: any, token?: string) => {
   }
 
   token =
-    token ??
-    (
-      await strapi
-        .plugin(PLUGIN_ID)
-        .service('api-video-asset')
-        .token(video.videoId)
-    ).token;
+    token ?? (await strapi.plugin(PLUGIN_ID).service('api-video-asset').token(video.videoId)).token;
 
   return {
     ...video,

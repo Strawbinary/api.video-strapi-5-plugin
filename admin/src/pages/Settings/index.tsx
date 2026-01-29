@@ -96,7 +96,9 @@ const Settings = () => {
 };
 
 export default () => (
-  <Page.Protect permissions={[{ action: 'plugin::api-video-strapi-5-plugin.settings.read', subject: null }]}>
+  <Page.Protect
+    permissions={[{ action: 'plugin::api-video-strapi-5-plugin.settings.read', subject: null }]}
+  >
     <Settings />
   </Page.Protect>
 );

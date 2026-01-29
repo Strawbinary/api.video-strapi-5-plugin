@@ -103,15 +103,14 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
 
     try {
       const { data } = await client.analytics.getMetricsBreakdown({
-        metric: 'view', 
-        breakdown: 'media-id', 
+        metric: 'view',
+        breakdown: 'media-id',
         from,
         to,
-        sortBy: 'metricValue', 
+        sortBy: 'metricValue',
         sortOrder: 'desc',
-        viewDuration: '30s' 
+        viewDuration: '30s',
       });
-
 
       const topMetrics = data.sort((a, b) => b.metricValue - a.metricValue).slice(0, 5);
 
