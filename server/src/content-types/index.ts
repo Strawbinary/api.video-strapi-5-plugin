@@ -67,7 +67,7 @@ export default {
           type: 'json',
         },
         duration: {
-          type: 'biginteger',
+          type: 'integer',
         },
       },
     },
