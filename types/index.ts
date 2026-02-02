@@ -14,6 +14,7 @@ export interface CustomVideo {
     key: string;
     value: string;
   }[];
+  duration?: number;
   createdAt: Date;
   id: number;
   updatedAt: Date;
@@ -39,6 +40,7 @@ export interface InputData {
     key: string;
     value: string;
   }[];
+  duration?: number;
 }
 export interface InputDataMetadata {
   key: string;

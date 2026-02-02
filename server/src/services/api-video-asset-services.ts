@@ -4,8 +4,6 @@ import { CustomVideo } from '../../../types';
 import { configClient } from '../utils/config';
 import { replacePrivateVideoTokens } from '../utils/private-videos';
 
-import { winston } from '@strapi/logger';
-
 const uid = `plugin::${PLUGIN_ID}.api-video-asset`;
 
 export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Strapi }) => ({
@@ -126,7 +124,7 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
         })
       );
     } catch (error) {
-      winston.error(error);
+      strapi.log.error(error);
     }
   },
 }));

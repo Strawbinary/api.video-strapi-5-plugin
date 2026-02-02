@@ -111,6 +111,32 @@ Configure fine-grained permissions under **Roles & Permissions** → **Plugins**
 
 By default, uploads carry an `uploadSource` metadata field set to `"Strapi"`. This cannot be changed.
 
+## 🔔 Webhook
+
+The plugin exposes a webhook endpoint to update the video `duration` once encoding finishes.
+
+1. In the api.video Dashboard, create a webhook for the event `video.encoding.quality.completed`.
+2. Set the webhook URL to your Strapi instance (default Content API prefix):
+   `POST https://<your-strapi-host>/api/api-video-asset/webhook`
+
+When the webhook is received and verified, the plugin fetches the video status from api.video and updates the
+`duration` field for the matching asset in Strapi.
+
+## 🧭 Migrations
+
+This plugin runs **one-time migrations** during Strapi bootstrap. The migration state is stored
+in the Strapi plugin store so each migration runs only once per environment.
+
+- **Storage key:** `migrations` (plugin store for `api-video-strapi-5-plugin`)
+- **State format:** A map of migration IDs with timestamps and result metadata
+- **Re-run a migration:** Delete the entry from the plugin store (or remove the whole `migrations` key)
+
+### Current migrations
+
+- **2026-01-29-backfill-duration-from-status**  
+  Backfills the `duration` field for existing videos by calling `client.videos.getStatus(videoId)` and
+  reading `metadata.duration` from the status response.
+
 ## 🤝 Contributing
 
 We welcome contributions, issues and feature requests!

@@ -1,6 +1,8 @@
 import { PLUGIN_ID } from '../../admin/src/pluginId';
+import { runMigrations } from './utils/migrations';
 
 export default async ({ strapi }: { strapi: any }) => {
+  strapi.log.info('[api.video] plugin bootstrap start');
   const actions = [
     // App
     {
@@ -45,4 +47,6 @@ export default async ({ strapi }: { strapi: any }) => {
   ];
 
   await strapi.admin.services.permission.actionProvider.registerMany(actions);
+
+  await runMigrations(strapi);
 };

@@ -66,6 +66,9 @@ export default {
         metadata: {
           type: 'json',
         },
+        duration: {
+          type: 'biginteger',
+        },
       },
     },
   },
