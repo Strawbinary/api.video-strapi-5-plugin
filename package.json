@@ -38,7 +38,8 @@
     "watch:link": "strapi-plugin watch:link",
     "verify": "strapi-plugin verify",
     "test:ts:front": "run -T tsc -p admin/tsconfig.json",
-    "test:ts:back": "run -T tsc -p server/tsconfig.json"
+    "test:ts:back": "run -T tsc -p server/tsconfig.json",
+    "release": "commit-and-tag-version"
   },
   "dependencies": {
     "@api.video/nodejs-client": "^2.6.8",
@@ -58,6 +59,7 @@
     "@strapi/typescript-utils": "^5.34.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
+    "commit-and-tag-version": "^12.6.1",
     "prettier": "^3.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
