@@ -5,9 +5,11 @@ import { Button } from '@strapi/design-system';
 import { useNotification } from '@strapi/strapi/admin';
 
 import { CloudUpload } from '@strapi/icons';
+import { fileToBase64 } from '../../../utils/fileToBase64';
 
 export interface IUploadButtonProps {
   currentFile: File | undefined;
+  thumbnailFile?: File;
   title: string;
   description: string;
   _public: boolean;
@@ -19,6 +21,7 @@ export interface IUploadButtonProps {
 
 const UploadButton: FC<IUploadButtonProps> = ({
   currentFile,
+  thumbnailFile,
   title,
   description,
   _public,
@@ -43,20 +46,42 @@ const UploadButton: FC<IUploadButtonProps> = ({
       tags: tags,
       metadata: metadata,
     };
-    const { data }: any = await assetsRequests.createVideoId(body);
+    const { data: createResponse }: any = await assetsRequests.createVideoId(body);
+    let thumbnailUrl: string | undefined;
 
     if (currentFile) {
       setIsUploading(true);
       const uploader = new VideoUploader({
         file: currentFile,
-        accessToken: data.token?.accessToken,
-        refreshToken: data.token?.refreshToken,
-        videoId: data.newVideo?.videoId,
+        accessToken: createResponse.token?.accessToken,
+        refreshToken: createResponse.token?.refreshToken,
+        videoId: createResponse.newVideo?.videoId,
       });
       try {
         uploader.onProgress((e) => setProgress(Math.round((e.uploadedBytes * 100) / e.totalBytes)));
 
         const res: any = await uploader.upload();
+
+        if (thumbnailFile) {
+          try {
+            const thumbnailRes: any = await assetsRequests.uploadThumbnail(
+              createResponse.newVideo?.videoId,
+              {
+                fileName: thumbnailFile.name,
+                mimeType: thumbnailFile.type,
+                base64: await fileToBase64(thumbnailFile),
+              }
+            );
+            thumbnailUrl = thumbnailRes?.data?.thumbnail;
+          } catch (error) {
+            console.error(error);
+            toggleNotification({
+              type: 'warning',
+              message:
+                'Thumbnail upload failed. The video will be saved with the default thumbnail.',
+            });
+          }
+        }
 
         const body = {
           title: res.title,
@@ -67,7 +92,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
           iframe: res.assets.iframe,
           mp4: res?.assets?.mp4,
           player: res.assets.player,
-          thumbnail: res?.assets?.thumbnail,
+          thumbnail: thumbnailUrl ?? res?.assets?.thumbnail,
           tags: res.tags,
           metadata: res.metadata,
         };

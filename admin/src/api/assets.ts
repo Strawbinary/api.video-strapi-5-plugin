@@ -17,6 +17,15 @@ const assetsRequests = {
       body,
     });
   },
+  uploadThumbnail: async (
+    videoId: string,
+    body: { fileName: string; mimeType: string; base64: string }
+  ) => {
+    const { post } = getFetchClient();
+    return await post(`/${PLUGIN_ID}/api-video-asset/${videoId}/thumbnail`, {
+      body,
+    });
+  },
   create: async (body: object) => {
     const { post } = getFetchClient();
     return await post(`/${PLUGIN_ID}/api-video-asset`, {

@@ -16,6 +16,14 @@ export default [
     },
   },
   {
+    method: 'POST',
+    path: '/api-video-asset/:videoId/thumbnail',
+    handler: 'admin.uploadThumbnail',
+    config: {
+      policies: [],
+    },
+  },
+  {
     method: 'GET',
     path: '/api-video-asset/getTopVideos',
     handler: 'admin.getTopVideos',

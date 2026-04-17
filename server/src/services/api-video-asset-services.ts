@@ -20,6 +20,23 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
     return { newVideo, token };
   },
 
+  async uploadThumbnail(
+    videoId: string,
+    file: { base64: string; mimeType?: string; fileName?: string }
+  ) {
+    const client = await configClient();
+    if (!file?.base64) {
+      throw new Error('Thumbnail file is missing');
+    }
+
+    const buffer = Buffer.from(file.base64, 'base64');
+    const updatedVideo = await client.videos.uploadThumbnail(videoId, buffer);
+    return {
+      thumbnail: updatedVideo.assets?.thumbnail,
+      video: updatedVideo,
+    };
+  },
+
   async findAll(query: any) {
     return strapi.documents(uid).findMany(query);
   },
@@ -56,7 +73,15 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
   async update(id: string, videoId: string, data: any) {
     const client = await configClient();
     try {
-      const updatedVideo = await client.videos.update(videoId, data);
+      const { thumbnail, resetThumbnail, ...videoUpdatePayload } = data || {};
+      let updatedVideo = await client.videos.update(videoId, videoUpdatePayload);
+
+      if (resetThumbnail) {
+        updatedVideo = await client.videos.pickThumbnail(videoId, {
+          timecode: '00:00:00.000',
+        });
+      }
+
       let customVideo: any = {
         title: updatedVideo.title,
         description: updatedVideo.description,
@@ -66,7 +91,7 @@ export default factories.createCoreService(uid, ({ strapi }: { strapi: Core.Stra
         iframe: updatedVideo.assets?.iframe,
         mp4: updatedVideo.assets?.mp4,
         player: updatedVideo.assets?.player,
-        thumbnail: updatedVideo.assets?.thumbnail,
+        thumbnail: thumbnail ?? updatedVideo.assets?.thumbnail,
         tags: updatedVideo.tags,
         metadata: updatedVideo.metadata as { key: string; value: string }[],
       };

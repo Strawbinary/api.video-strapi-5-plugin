@@ -40,6 +40,8 @@ export interface InputData {
     key: string;
     value: string;
   }[];
+  thumbnail?: string;
+  resetThumbnail?: boolean;
   duration?: number;
 }
 export interface InputDataMetadata {

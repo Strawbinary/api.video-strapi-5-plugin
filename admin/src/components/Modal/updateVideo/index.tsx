@@ -10,6 +10,7 @@ import LinksTable from '../../LinksTable';
 import MetadataTable from '../../Metadata';
 import Tags from '../../Tags';
 import Toggle from '../../Toggle';
+import ThumbnailImportZone from '../ThumbnailImportZone';
 import PlayerView from './PlayerView';
 
 interface IUpdateVideoModalProps {
@@ -32,6 +33,8 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
     tags: video.tags,
     metadata: video.metadata,
   });
+  const [thumbnailFile, setThumbnailFile] = useState<File | undefined>();
+  const [resetThumbnail, setResetThumbnail] = useState(false);
 
   // CONSTANTS
   const { title, description, _public, tags, metadata } = inputData;
@@ -84,6 +87,18 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
         </Modal.Header>
         <Modal.Body>
           <PlayerView video={video} />
+          <ThumbnailImportZone
+            initialThumbnail={video.thumbnail}
+            showResetMessage={resetThumbnail}
+            onFileSelected={(file) => {
+              setThumbnailFile(file);
+              setResetThumbnail(false);
+            }}
+            onFileCleared={() => {
+              setThumbnailFile(undefined);
+              setResetThumbnail(true);
+            }}
+          />
           <FieldComp
             name="title"
             label={formatMessage({
@@ -168,6 +183,8 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
                 _public={_public}
                 tags={tags || []}
                 metadata={metadata || []}
+                thumbnailFile={thumbnailFile}
+                resetThumbnail={resetThumbnail}
                 id={video.documentId}
                 videoId={video.videoId}
                 update={update}

@@ -23,6 +23,25 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       ctx.throw(500, err);
     }
   },
+  async uploadThumbnail(ctx: any) {
+    try {
+      if (
+        !isAllowedTo(strapi, ctx, mainCreateAction) &&
+        !isAllowedTo(strapi, ctx, mainUpdateAction)
+      ) {
+        return ctx.forbidden();
+      }
+
+      const payload = ctx.request.body.body;
+
+      ctx.body = await strapi
+        .plugin(PLUGIN_ID)
+        .service('api-video-asset')
+        .uploadThumbnail(ctx.params.videoId, payload);
+    } catch (err) {
+      ctx.throw(500, err);
+    }
+  },
   async create(ctx: any) {
     try {
       if (!isAllowedTo(strapi, ctx, mainCreateAction)) {

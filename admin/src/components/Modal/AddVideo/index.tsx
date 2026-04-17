@@ -5,6 +5,7 @@ import { getTranslation } from '../../../utils/getTranslation';
 import FieldComp from '../../FieldComp/Fields';
 import UploadButton from '../../Button/UploadButton';
 import ImportZone, { ImportZoneHandles } from './importZone';
+import ThumbnailImportZone from '../ThumbnailImportZone';
 import Tags from '../../Tags';
 import Toggle from '../../Toggle';
 import settingsRequests from '../../../api/settings';
@@ -31,6 +32,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
   });
 
   const [file, setFile] = useState<File | undefined>();
+  const [thumbnailFile, setThumbnailFile] = useState<File | undefined>();
   const [initialState, setInitialState] = useState<number>(0);
   const { formatMessage } = useIntl();
 
@@ -127,6 +129,10 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
             onFileSelected={onFileSelected}
             ref={importZoneRef}
           />
+          <ThumbnailImportZone
+            onFileSelected={(file) => setThumbnailFile(file)}
+            onFileCleared={() => setThumbnailFile(undefined)}
+          />
           <FieldComp
             name="title"
             label={formatMessage({
@@ -202,6 +208,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
           </Modal.Close>
           <UploadButton
             currentFile={file}
+            thumbnailFile={thumbnailFile}
             title={title}
             description={description}
             _public={_public}
