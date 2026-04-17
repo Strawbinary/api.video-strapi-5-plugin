@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Strawbinary/api.video-strapi-5-plugin/compare/v1.1.1...v1.2.0) (2026-04-17)
+
+
+### Features
+
+* add ability to upload thumbnail ([5a49a64](https://github.com/Strawbinary/api.video-strapi-5-plugin/commit/5a49a642a71e85393345e4af722e8c6d37bced19))
+
 ## [1.1.1](https://github.com/Strawbinary/api.video-strapi-5-plugin/compare/v1.1.0...v1.1.1) (2026-02-02)
 
 ## 1.1.0 (2026-02-02)
