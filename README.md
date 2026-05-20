@@ -70,6 +70,29 @@ Before using the plugin, you must supply your api.video API key in Strapi’s se
 1. In Strapi Admin, go to **Settings** → **API.VIDEO Plugin**.
 2. Enter your API key and click **Save**.
 
+### Daily sync cron
+
+The plugin registers a daily cron job that imports api.video assets missing in Strapi.
+It runs at `03:00` server time by default.
+
+To override the schedule or disable the job, configure the plugin in your app’s `config/plugins.ts`:
+
+```ts
+export default {
+  'api-video-strapi-5-plugin': {
+    enabled: true,
+    config: {
+      cron: {
+        enabled: true,
+        rule: '0 3 * * *',
+      },
+    },
+  },
+};
+```
+
+Strapi cron jobs must also be enabled globally in your app’s `config/server.ts` file.
+
 ### Content Security Policy
 
 To allow thumbnails, embeds and the player to load correctly, update your `config/middlewares.ts` file with the following security entry:
