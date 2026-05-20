@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Strawbinary/api.video-strapi-5-plugin/compare/v1.2.0...v1.3.0) (2026-05-20)
+
+
+### Features
+
+* implement cron job to sync missing data in strapi instance ([694cacc](https://github.com/Strawbinary/api.video-strapi-5-plugin/commit/694cacc638d312a08d08fa9d2d355100c8ca4b1b))
+
 ## [1.2.0](https://github.com/Strawbinary/api.video-strapi-5-plugin/compare/v1.1.1...v1.2.0) (2026-04-17)
 
 
